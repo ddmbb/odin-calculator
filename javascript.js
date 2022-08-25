@@ -2,15 +2,15 @@ const bigScreen = document.querySelector('#lower-display')
 const smallScreen = document.querySelector('#upper-display');
 let firstOperand = '';
 let secondOperand = '';
-let operator;
+let operator = '';
 
 const clickNumber = document.querySelectorAll('.number');
 
 clickNumber.forEach(el => el.addEventListener('click', event => {
-    if (operator === undefined && firstOperand.length < 10) {
+    if (operator === '' && firstOperand.length < 10) {
         smallScreen.textContent += event.target.value;
         firstOperand += event.target.value;
-    } else if (operator !== undefined && secondOperand.length < 10) {
+    } else if (operator !== '' && secondOperand.length < 10) {
         smallScreen.textContent += event.target.value;
         secondOperand += event.target.value;
     } else {
@@ -23,7 +23,7 @@ clickNumber.forEach(el => el.addEventListener('click', event => {
 const clickOperator = document.querySelectorAll('.operator');
 
 clickOperator.forEach(el => el.addEventListener('click', event => {
-    if (operator === undefined) {
+    if (operator === '') {
         smallScreen.textContent += event.target.value;
         operator = event.target.value;
     }
@@ -32,16 +32,16 @@ clickOperator.forEach(el => el.addEventListener('click', event => {
 const clickDecimal = document.querySelector('#decimal');
 
 clickDecimal.addEventListener("click", function () {
-    if (operator === undefined && firstOperand === undefined) {
+    if (operator === '' && firstOperand === '') {
         smallScreen.textContent += '0.';
         firstOperand += '0.';
-    } else if (operator === undefined && firstOperand.length < 8) {
+    } else if (operator === '' && firstOperand.length < 8) {
         smallScreen.textContent += '.';
         firstOperand += '.';
-    } else if (operator !== undefined && secondOperand === undefined) {
+    } else if (operator !== '' && secondOperand === '') {
         smallScreen.textContent += '0.';
         secondOperand += '0.';
-    } else if (operator !== undefined && secondOperand.length < 8) {
+    } else if (operator !== '' && secondOperand.length < 8) {
         smallScreen.textContent += '.';
         secondOperand += '.';
     } else {
@@ -49,20 +49,20 @@ clickDecimal.addEventListener("click", function () {
     }
 });
 
-// Cannot reset operator to undefined or reset smallScreen text
+// Cannot reset operator to '' or reset smallScreen text
 
 const clickDelete = document.querySelector('#delete');
 
 clickDelete.addEventListener("click", function () {
-    if (operator === undefined) {
+    if (operator === '') {
         smallScreen.textContent = firstOperand.slice(0, firstOperand.length - 1);
         firstOperand = firstOperand.slice(0, firstOperand.length - 1);
-    } else if (operator !== undefined && secondOperand === undefined) {
+    } else if (operator !== '' && secondOperand === '') {
         smallScreen.textContent = firstOperand;
-        let operator = undefined;
+        operator = '';
     } else {
-        // smallScreen.textContent = `${firstOperand}${operator}${firstOperand.slice(0, firstOperand.length - 1)}`
-        // secondOperand = firstOperand.slice(0, firstOperand.length - 1);
+        smallScreen.textContent = `${firstOperand}${operator}${firstOperand.slice(0, firstOperand.length - 1)}`
+        secondOperand = secondOperand.slice(0, secondOperand.length - 1);
     }
     console.log('delete');
     console.log({ firstOperand });
