@@ -3,6 +3,8 @@ const smallScreen = document.querySelector('#upper-display');
 let firstOperand = '';
 let secondOperand = '';
 let operator = '';
+let firstNegative = false;
+let secondNegative = false;
 
 const clickNumber = document.querySelectorAll('.number');
 
@@ -16,8 +18,6 @@ clickNumber.forEach(el => el.addEventListener('click', event => {
     } else {
         return;
     }
-    console.log({ firstOperand });
-    console.log({ secondOperand });
 }));
 
 const clickOperator = document.querySelectorAll('.operator');
@@ -49,8 +49,6 @@ clickDecimal.addEventListener("click", function () {
     }
 });
 
-// Cannot reset operator to '' or reset smallScreen text
-
 const clickDelete = document.querySelector('#delete');
 
 clickDelete.addEventListener("click", function () {
@@ -64,17 +62,44 @@ clickDelete.addEventListener("click", function () {
         smallScreen.textContent = `${firstOperand}${operator}${secondOperand.slice(0, secondOperand.length - 1)}`
         secondOperand = secondOperand.slice(0, secondOperand.length - 1);
     }
-    console.log('delete');
+});
+
+const clickClear = document.querySelector('#clear');
+
+clickClear.addEventListener('click', function () {
+    firstOperand = '';
+    secondOperand = '';
+    operator = '';
+    smallScreen.textContent = '';
+    bigScreen.textContent = '';
     console.log({ firstOperand });
     console.log({ secondOperand });
     console.log({ operator });
 });
 
-const clickClear = document.querySelector('#clear');
+const clickNegative = document.querySelector('#negative');
 
-clickClear.addEventListener("click", function () {
-    let
-})
+clickNegative.addEventListener('click', function () {
+    if (operator === '' && firstNegative === false) {
+        smallScreen.textContent = `-${firstOperand}`;
+        firstOperand = `-${firstOperand}`;
+        firstNegative = true;
+    } else if (operator === '' && firstNegative === true) {
+        smallScreen.textContent = firstOperand.substring(1);
+        firstOperand = firstOperand.substring(1);
+        firstNegative = false;
+    } else if (operator !== '' && secondNegative === false) {
+        smallScreen.textContent = `${firstOperand}${operator}-${secondOperand}`;
+        secondOperand = `-${secondOperand}`;
+        secondNegative = true;
+    } else if (operator !== '' && secondNegative === true) {
+        smallScreen.textContent = `${firstOperand}${operator}${secondOperand.substring(1)}`;
+        secondOperand = secondOperand.substring(1);
+        secondNegative = false;
+    } else {
+        return;
+    }
+});
 
 
 // Operator Functions
@@ -104,6 +129,6 @@ function exponent(a, b) {
 //
 // switch statement for operators clickEqual
 //
-// clickClear
+// 
 //
-// clickMinus
+// 
