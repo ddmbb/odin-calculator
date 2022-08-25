@@ -5,8 +5,8 @@ html {
 * {
     margin: 0;
     padding: 0;
-    /* box-sizing: inherit; */
-    background-color: black;
+    background-color: #000000;
+    font-family: 'Roboto';
 }
 
 .wrapper {
@@ -75,12 +75,33 @@ button {
 }
 
 button:hover {
-    -webkit-transform: scale(0.89);
-    -moz-transform: scale(0.89);
-    -ms-transform: scale(0.89);
-    transform: scale(0.89);
+    -webkit-transform: scale(0.91);
+    -moz-transform: scale(0.91);
+    -ms-transform: scale(0.91);
+    transform: scale(0.91);
     -webkit-transition: -webkit-transform 0.25s;
     -moz-transition: -moz-transform 0.25s;
     -ms-transition: -ms-transform 0.25s;
     transition: transform 0.25s;
+}
+
+button:active {
+    animation-name: btn-flash;
+    animation-duration: 1s;
+}
+
+@keyframes btn-flash {
+    from {
+        color: black;
+        outline: 1px solid black;
+        background: rgb(58, 58, 58);
+        outline-offset: 0;
+    }
+
+    to {
+        color: black;
+        outline: 1px solid transparent;
+        background: grey;
+        /* outline-offset: -4px; */
+    }
 }
