@@ -61,7 +61,7 @@ clickDelete.addEventListener("click", function () {
         smallScreen.textContent = firstOperand;
         operator = '';
     } else {
-        smallScreen.textContent = `${firstOperand}${operator}${firstOperand.slice(0, firstOperand.length - 1)}`
+        smallScreen.textContent = `${firstOperand}${operator}${secondOperand.slice(0, secondOperand.length - 1)}`
         secondOperand = secondOperand.slice(0, secondOperand.length - 1);
     }
     console.log('delete');
@@ -99,3 +99,11 @@ function exponent(a, b) {
     return a ** b;
 }
 
+
+//  NEED
+//
+// switch statement for operators clickEqual
+//
+// clickClear
+//
+// clickMinus
