@@ -5,6 +5,7 @@ let secondOperand = '';
 let operator = '';
 let firstNegative = false;
 let secondNegative = false;
+let result = '';
 
 const clickNumber = document.querySelectorAll('.number');
 
@@ -72,9 +73,6 @@ clickClear.addEventListener('click', function () {
     operator = '';
     smallScreen.textContent = '';
     bigScreen.textContent = '';
-    console.log({ firstOperand });
-    console.log({ secondOperand });
-    console.log({ operator });
 });
 
 const clickNegative = document.querySelector('#negative');
@@ -101,34 +99,87 @@ clickNegative.addEventListener('click', function () {
     }
 });
 
+const clickEquals = document.querySelector('#equals');
+
+clickEquals.addEventListener('click', function () {
+    if (operator !== '' && firstOperand !== '' && secondOperand !== '') {
+        firstOperand = parseInt(firstOperand);
+        secondOperand = parseInt(secondOperand);
+        switch (operator) {
+            case '+':
+                add(firstOperand, secondOperand);
+                smallScreen.textContent = '';
+                bigScreen.textContent = result;
+                firstOperand = result;
+                operator = '';
+                secondOperand = '';
+                break;
+            case '-':
+                subtract(firstOperand, secondOperand);
+                smallScreen.textContent = '';
+                bigScreen.textContent = result;
+                firstOperand = result;
+                operator = '';
+                secondOperand = '';
+                break;
+            case '*':
+                multiply(firstOperand, secondOperand);
+                smallScreen.textContent = '';
+                bigScreen.textContent = result;
+                firstOperand = result;
+                operator = '';
+                secondOperand = '';
+                break;
+            case '/':
+                divide(firstOperand, secondOperand);
+                smallScreen.textContent = '';
+                bigScreen.textContent = result;
+                firstOperand = result;
+                operator = '';
+                secondOperand = '';
+                break;
+            case '**':
+                exponent(firstOperand, secondOperand);
+                smallScreen.textContent = '';
+                bigScreen.textContent = result;
+                firstOperand = result;
+                operator = '';
+                secondOperand = '';
+                break;
+        }
+    } else {
+        return;
+    }
+});
+
 
 // Operator Functions
 
 function add(a, b) {
-    return a + b;
+    result = a + b;
 };
 
 function subtract(a, b) {
-    return a - b;
+    result = a - b;
 };
 
 function multiply(a, b) {
-    return a * b;
+    result = a * b;
 };
 
 function divide(a, b) {
-    return a / b;
+    result = a / b;
 };
 
 function exponent(a, b) {
-    return a ** b;
-}
+    result = a ** b;
+};
 
 
 //  NEED
 //
-// switch statement for operators clickEqual
+// click equal for no operator/secondOperand
 //
-// 
+// display smallscreen properly after first computation
 //
-// 
+// fix clickNumber listener for complexity
