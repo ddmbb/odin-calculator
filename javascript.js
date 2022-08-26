@@ -7,8 +7,6 @@ let firstNegative = false;
 let secondNegative = false;
 let firstDecimal = false;
 let secondDecimal = false;
-let selectNumber = false;
-
 
 const clickNumber = document.querySelectorAll('.number');
 
@@ -53,20 +51,25 @@ clickOperator.forEach(el => el.addEventListener('click', event => {
 const clickDecimal = document.querySelector('#decimal');
 
 clickDecimal.addEventListener("click", function () {
-    if (decimal === true) {
+    if (firstDecimal === true) { return };
+    if (secondDecimal === true) {
         return;
     } else if (operator === '' && firstOperand === '') {
         display.textContent += '0.';
         firstOperand += '0.';
+        firstDecimal = true;
     } else if (operator === '' && firstOperand.length < 8) {
         display.textContent += '.';
         firstOperand += '.';
+        firstDecimal = true;
     } else if (operator !== '' && secondOperand === '') {
         display.textContent += '0.';
         secondOperand += '0.';
+        secondDecimal = true;
     } else if (operator !== '' && secondOperand.length < 8) {
         display.textContent += '.';
         secondOperand += '.';
+        secondDecimal = true;
     } else {
         return;
     }
@@ -118,11 +121,11 @@ clickNegative.addEventListener('click', function () {
         firstOperand = firstOperand.substring(1);
         firstNegative = false;
     } else if (operator !== '' && secondNegative === false) {
-        display.textContent = `${firstOperand}${operator}-${secondOperand}`;
+        display.textContent = `-${secondOperand}`;
         secondOperand = `-${secondOperand}`;
         secondNegative = true;
     } else if (operator !== '' && secondNegative === true) {
-        display.textContent = `${firstOperand}${operator}${secondOperand.substring(1)}`;
+        display.textContent = `${secondOperand.substring(1)}`;
         secondOperand = secondOperand.substring(1);
         secondNegative = false;
     } else {
@@ -174,6 +177,8 @@ clickEquals.addEventListener('click', function () {
                 break;
         }
         clearOperator();
+        secondDecimal = false;
+        secondNegative = false;
     } else {
         return;
     }
@@ -233,7 +238,5 @@ function clearNumber() {
 //
 // keystroke functionality
 //
-// fix decimals (only input 1)
-// 
-// clickNegative function
+// clickDecimal function
 //
