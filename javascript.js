@@ -239,4 +239,6 @@ function clearNumber() {
 // keystroke functionality
 //
 // clickDecimal function
+//      limit to 1 decimal per number
+//
 //
