@@ -3,9 +3,12 @@ const smallScreen = document.querySelector('#upper-display');
 let firstOperand = '';
 let secondOperand = '';
 let operator = '';
+let result = '';
 let firstNegative = false;
 let secondNegative = false;
-let result = '';
+let firstDecimal = false;
+let secondDecimal = false;
+
 
 const clickNumber = document.querySelectorAll('.number');
 
@@ -52,6 +55,8 @@ clickOperator.forEach(el => el.addEventListener('click', event => {
     } else if (operator === '' && result === '' && firstOperand !== '') {
         smallScreen.textContent += event.target.value;
         operator = event.target.value;
+    } else if (operator !== '' && firstOperand !== '' && secondOperand !== 0) {
+        return;
     } else {
         smallScreen.textContent = result += event.target.value
         operator = event.target.value;
@@ -61,7 +66,9 @@ clickOperator.forEach(el => el.addEventListener('click', event => {
 const clickDecimal = document.querySelector('#decimal');
 
 clickDecimal.addEventListener("click", function () {
-    if (operator === '' && firstOperand === '') {
+    if (decimal === true) {
+        return;
+    } else if (operator === '' && firstOperand === '') {
         smallScreen.textContent += '0.';
         firstOperand += '0.';
     } else if (operator === '' && firstOperand.length < 8) {
@@ -81,15 +88,17 @@ clickDecimal.addEventListener("click", function () {
 const clickDelete = document.querySelector('#delete');
 
 clickDelete.addEventListener("click", function () {
-    if (operator === '') {
+    if (operator === '' && result === '') {
         smallScreen.textContent = firstOperand.slice(0, firstOperand.length - 1);
         firstOperand = firstOperand.slice(0, firstOperand.length - 1);
     } else if (operator !== '' && secondOperand === '') {
         smallScreen.textContent = firstOperand;
         operator = '';
-    } else {
+    } else if (operator !== '' && secondOperand !== '') {
         smallScreen.textContent = `${firstOperand}${operator}${secondOperand.slice(0, secondOperand.length - 1)}`
         secondOperand = secondOperand.slice(0, secondOperand.length - 1);
+    } else {
+        return;
     }
 });
 
@@ -102,6 +111,8 @@ clickClear.addEventListener('click', function () {
     result = '';
     firstNegative = false;
     secondNegative = false;
+    firstDecimal = false;
+    secondDecimal = false;
     smallScreen.textContent = '';
     bigScreen.textContent = '';
 });
@@ -133,6 +144,7 @@ clickNegative.addEventListener('click', function () {
 const clickEquals = document.querySelector('#equals');
 
 clickEquals.addEventListener('click', function () {
+    if (operator === '' && firstOperand !== '') { bigScreen.textContent = firstOperand };
     if (operator !== '' && firstOperand !== '' && secondOperand !== '') {
         firstOperand = parseInt(firstOperand);
         secondOperand = parseInt(secondOperand);
@@ -209,14 +221,13 @@ function exponent(a, b) {
 
 //  NEED
 //
-// click equal for no operator/secondOperand
+// keystroke functionality
 //
-
-//
-
-//
-// fix del for result !== ''
-//
-// fix operator 
-//
-// add functionality for all buttons if result !== 0
+// CSS: make display 1 line, dont need big and small displays
+// https://mrbuddh4.github.io/calculator/
+// 
+// CSS: make the operator an active state button
+// 
+// fix decimals (only input 1)
+// 
+// round?
