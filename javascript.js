@@ -9,11 +9,34 @@ let result = '';
 
 const clickNumber = document.querySelectorAll('.number');
 
+// clickNumber.forEach(el => el.addEventListener('click', event => {
+//     if (operator === '' && result === '' && firstOperand.length < 10) {
+//         smallScreen.textContent += event.target.value;
+//         firstOperand += event.target.value;
+//     } else if (operator === '' && result !== '' && secondOperand.length < 10) {
+//         smallScreen.textContent = `${result}${operator}`;
+//         smallScreen.textContent += event.target.value;
+//         secondOperand += event.target.value;
+//     } else if (operator !== '' && result === '' && secondOperand.length < 10) {
+//         smallScreen.textContent += event.target.value;
+//         secondOperand += event.target.value;
+//     } else if (operator === '' && result !== '') {
+//         smallScreen.textContent = 'Choose an operator';
+//     } else {
+//         return;
+//     }
+// }));
+
 clickNumber.forEach(el => el.addEventListener('click', event => {
-    if (operator === '' && firstOperand.length < 10) {
+    if (operator === '' && result === '' && firstOperand.length < 10) {
         smallScreen.textContent += event.target.value;
         firstOperand += event.target.value;
-    } else if (operator !== '' && secondOperand.length < 10) {
+    } else if (operator !== '' && result === '' && secondOperand.length < 10) {
+        smallScreen.textContent += event.target.value;
+        secondOperand += event.target.value;
+    } else if (operator === '' && result !== '' && secondOperand.length < 10) {
+        smallScreen.textContent = 'Choose an operator';
+    } else if (operator !== '' && result !== '' && secondOperand.length < 10) {
         smallScreen.textContent += event.target.value;
         secondOperand += event.target.value;
     } else {
@@ -24,8 +47,13 @@ clickNumber.forEach(el => el.addEventListener('click', event => {
 const clickOperator = document.querySelectorAll('.operator');
 
 clickOperator.forEach(el => el.addEventListener('click', event => {
-    if (operator === '') {
+    if (firstOperand === '') {
+        smallScreen.textContent = 'Please choose a number';
+    } else if (operator === '' && result === '' && firstOperand !== '') {
         smallScreen.textContent += event.target.value;
+        operator = event.target.value;
+    } else {
+        smallScreen.textContent = result += event.target.value
         operator = event.target.value;
     }
 }));
@@ -71,6 +99,9 @@ clickClear.addEventListener('click', function () {
     firstOperand = '';
     secondOperand = '';
     operator = '';
+    result = '';
+    firstNegative = false;
+    secondNegative = false;
     smallScreen.textContent = '';
     bigScreen.textContent = '';
 });
@@ -180,6 +211,12 @@ function exponent(a, b) {
 //
 // click equal for no operator/secondOperand
 //
-// display smallscreen properly after first computation
+
 //
-// fix clickNumber listener for complexity
+
+//
+// fix del for result !== ''
+//
+// fix operator 
+//
+// add functionality for all buttons if result !== 0
